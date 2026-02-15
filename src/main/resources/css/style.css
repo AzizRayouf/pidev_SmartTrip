@@ -1,0 +1,151 @@
+/* --- Style Global --- */
+.root {
+    -fx-background-color: #F4F7F6; /* Gris très clair pro */
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* --- Titre --- */
+.label-title {
+    -fx-text-fill: #2C3E50;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* --- TableView (Le plus important) --- */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-border-color: #DCDDE1;
+    -fx-border-radius: 10px;
+    -fx-padding: 5;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1A73E8; /* Bleu Voyage */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #FFFFFF;
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #F8F9FA;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #D1E4FF;
+    -fx-text-fill: #1A73E8;
+}
+
+/* --- Boutons --- */
+.button {
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-transition: 0.3s;
+}
+
+/* Bouton Ajouter (Orange) */
+.btn-add {
+    -fx-background-color: #FF5A1F;
+    -fx-text-fill: white;
+}
+.btn-add:hover {
+    -fx-background-color: #E64A19;
+}
+
+/* Bouton Modifier (Bleu) */
+.btn-update {
+    -fx-background-color: #1A73E8;
+    -fx-text-fill: white;
+}
+.btn-update:hover {
+    -fx-background-color: #1557B0;
+}
+
+/* Bouton Supprimer (Rouge/Gris) */
+.btn-delete {
+    -fx-background-color: #BDC3C7;
+    -fx-text-fill: #2C3E50;
+}
+.btn-delete:hover {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+}
+
+/* --- Barre de recherche --- */
+.text-field {
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #DCDDE1;
+    -fx-padding: 8 15;
+}
+.text-field:focused {
+    -fx-border-color: #1A73E8;
+    -fx-background-color: white;
+}
+
+#txtRecherche {
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #DCDDE1;
+    -fx-padding: 8 15;
+    -fx-prompt-text-fill: #A0A0A0;
+}
+
+#txtRecherche:focused {
+    -fx-border-color: #1A73E8; /* Bleu Voyage au focus */
+    -fx-background-color: white;
+}
+
+/* Container des cartes */
+.offer-card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+    -fx-pref-width: 220;
+    -fx-alignment: center-left;
+    -fx-border-color: #EAECEE;
+    -fx-border-radius: 15;
+}
+
+.offer-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(26, 115, 232, 0.3), 15, 0, 0, 8);
+    -fx-translate-y: -5; /* Petit effet de levée au survol */
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+.card-remise {
+    -fx-background-color: #FF5A1F;
+    -fx-text-fill: white;
+    -fx-padding: 2 8;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+.badge-odd {
+    -fx-background-color: #D5F5E3;
+    -fx-text-fill: #27AE60;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 10;
+}
+
+.btn-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #1A73E8;
+    -fx-border-radius: 5;
+    -fx-text-fill: #1A73E8;
+    -fx-font-weight: bold;
+    -fx-pref-width: 180;
+}
