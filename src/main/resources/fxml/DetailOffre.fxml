@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="550.0" prefWidth="450.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.DetailOffreController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+            </padding>
+            <children>
+                <!-- Image de la destination -->
+                <ImageView fx:id="imgDetail" fitHeight="200.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="false" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);" />
+
+                <!-- Infos Destination & Titre -->
+                <VBox spacing="5.0">
+                    <children>
+                        <Label fx:id="lblDestination" style="-fx-text-fill: #1A73E8; -fx-font-weight: bold;" text="📍 Destination" />
+                        <Label fx:id="lblTitre" styleClass="label-title" text="TITRE DE L'OFFRE" wrapText="true" />
+                        <Label fx:id="lblRemise" style="-fx-background-color: #FF5A1F; -fx-text-fill: white; -fx-padding: 5 10; -fx-background-radius: 5;" text="-20%" />
+                    </children>
+                </VBox>
+
+                <Separator />
+
+                <!-- Description -->
+                <ScrollPane fitToWidth="true" prefHeight="100.0" style="-fx-background-color: transparent;">
+                    <content>
+                        <Label fx:id="lblDescription" text="Description détaillée ici..." wrapText="true" />
+                    </content>
+                </ScrollPane>
+
+                <Separator />
+
+                <!-- Zone Promo (MÉTIER & API) -->
+                <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #F8F9FA; -fx-padding: 15; -fx-background-radius: 10;">
+                    <children>
+                        <Label text="Voulez-vous profiter de cette offre ?" style="-fx-font-weight: bold;" />
+                        <Button fx:id="btnGenerer" onAction="#handleGenererPromo" styleClass="btn-add" text="Générer mon Code de réduction 🎁" />
+
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <TextField fx:id="txtCodeGenere" editable="false" prefWidth="200.0" promptText="Votre code apparaîtra ici" style="-fx-alignment: center; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+                                <Button fx:id="btnPDF" disable="true" onAction="#handleExportPDF" style="-fx-background-color: #E74C3C; -fx-text-fill: white;" text="PDF 📄" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <Button onAction="#handleFermer" text="Fermer" styleClass="btn-delete" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

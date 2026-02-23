@@ -18,7 +18,7 @@
             </font>
         </Label>
 
-        <!-- NOUVEAU : Bouton de bascule vers l'interface client -->
+        <!-- Bouton de bascule vers l'interface client -->
         <Button fx:id="btnSwitch" layoutX="330.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleSwitchToClient" styleClass="btn-update" text="Interface Voyageur ✈️" textFill="#181717" />
 
         <!-- Barre de recherche -->
@@ -36,6 +36,10 @@
         </TableView>
 
         <!-- Boutons de gestion en bas -->
+
+        <!-- NOUVEAU BOUTON : Gérer les Coupons -->
+        <Button fx:id="btnGererCodes" layoutX="240.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleGererCodes" styleClass="btn-update" text="Gérer les Coupons 🎟️" textFill="#181717" />
+
         <Button fx:id="btnSuppprimer" layoutX="402.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleSupprimer" styleClass="btn-delete" text="Supprimer" textFill="#151414" />
         <Button fx:id="btnModifier" layoutX="491.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleModifier" styleClass="btn-update" text="Modifier l'Offre" textFill="#181717" />
         <Button fx:id="btnAjouter" layoutX="609.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleAjouter" styleClass="btn-add" text=" + Créer une Offre" textFill="#181717" />

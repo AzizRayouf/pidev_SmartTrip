@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.example.entities.Offre;
 import org.example.services.OffreService;
@@ -32,9 +32,8 @@ public class ConsultationOffresController {
 
     @FXML
     public void initialize() {
-        displayOffres(""); // Affiche toutes les offres au démarrage
+        displayOffres("");
 
-        // Écouteur pour la recherche dynamique
         txtSearch.textProperty().addListener((obs, oldVal, newVal) -> {
             displayOffres(newVal);
         });
@@ -45,7 +44,6 @@ public class ConsultationOffresController {
         try {
             List<Offre> list = os.afficher();
             for (Offre o : list) {
-                // Filtrer par titre
                 if (o.getTitre().toLowerCase().contains(filter.toLowerCase())) {
                     containerCards.getChildren().add(createCard(o));
                 }
@@ -77,8 +75,7 @@ public class ConsultationOffresController {
         clip.setArcWidth(20); clip.setArcHeight(20);
         imageView.setClip(clip);
 
-        // --- 2. NOUVEAU : AFFICHAGE DU LIEU (DESTINATION) ---
-        // On l'affiche avec une couleur bleue et une petite icône
+        // --- 2. AFFICHAGE DU LIEU (DESTINATION) ---
         Label destinationLabel = new Label("📍 " + (o.getDestination() != null ? o.getDestination() : "Destination"));
         destinationLabel.setStyle("-fx-text-fill: #1A73E8; -fx-font-weight: bold; -fx-font-size: 13px;");
 
@@ -98,14 +95,40 @@ public class ConsultationOffresController {
             badgeBox.getChildren().add(badge);
         }
 
+        // --- 4. BOUTON ACTION : OUVRIR LES DÉTAILS ---
         Button btnView = new Button("En savoir plus");
         btnView.getStyleClass().add("btn-view");
 
-        // ON ASSEMBLE TOUT (Ordre : Image -> Badge -> Lieu -> Titre -> Remise -> Bouton)
+        // ACTION LORS DU CLIC
+        btnView.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DetailOffre.fxml"));
+                Parent root = loader.load();
+
+                // On récupère le contrôleur de la fenêtre de détails
+                DetailOffreController controller = loader.getController();
+                // On lui passe l'objet Offre sélectionné
+                controller.setOffreData(o);
+
+                // Ouverture dans une nouvelle fenêtre (Stage)
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL); // Bloque la fenêtre parente
+                stage.setTitle("SmartTrip - Détails de l'Offre");
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (IOException e) {
+                System.err.println("Erreur ouverture détails : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+
+        // On assemble tout
         card.getChildren().addAll(imageView, badgeBox, destinationLabel, titre, remise, btnView);
 
         return card;
     }
+
     @FXML
     private void handleSwitchToAdmin() {
         try {

@@ -30,7 +30,7 @@ public class AfficherOffresController {
     @FXML
     private TableColumn<Offre, String> colStatut;
 
-    // --- NOUVELLE COLONNE ODD 8 ---
+    // --- COLONNE ODD 8 ---
     @FXML
     private TableColumn<Offre, Boolean> colODD;
 
@@ -62,7 +62,6 @@ public class AfficherOffresController {
                         } else {
                             if (item) {
                                 setText("🤝 Soutien Local");
-                                // Style du badge : Vert, gras, bords arrondis
                                 setStyle("-fx-background-color: #D5F5E3; " +
                                         "-fx-text-fill: #27AE60; " +
                                         "-fx-font-weight: bold; " +
@@ -82,7 +81,7 @@ public class AfficherOffresController {
             // 3. Chargement initial des données
             refreshTable();
 
-            // 4. Configuration du Placeholder (Tableau vide)
+            // 4. Configuration du Placeholder
             tableOffres.setPlaceholder(new Label("Aucune offre promotionnelle trouvée."));
 
         } catch (SQLException e) {
@@ -113,6 +112,36 @@ public class AfficherOffresController {
         SortedList<Offre> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableOffres.comparatorProperty());
         tableOffres.setItems(sortedData);
+    }
+
+    // --- NOUVELLE MÉTHODE : Gérer la 2ème entité (CodePromo) ---
+    @FXML
+    private void handleGererCodes() {
+        Offre selected = tableOffres.getSelectionModel().getSelectedItem();
+
+        if (selected != null) {
+            try {
+                // Charger le FXML de la gestion des codes
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GestionCodes.fxml"));
+                Parent root = loader.load();
+
+                // Envoyer l'offre sélectionnée au nouveau contrôleur
+                GestionCodesController controller = loader.getController();
+                controller.setOffre(selected);
+
+                // Ouvrir la nouvelle fenêtre
+                Stage stage = new Stage();
+                stage.setTitle("Gestion des Codes Coupons : " + selected.getTitre());
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            } catch (IOException e) {
+                showAlert("Erreur", "Impossible de charger l'interface de gestion des codes.");
+                e.printStackTrace();
+            }
+        } else {
+            showAlert("Sélection requise", "Veuillez sélectionner une offre pour en gérer les coupons.");
+        }
     }
 
     @FXML
@@ -160,7 +189,7 @@ public class AfficherOffresController {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
             alert.setHeaderText("Supprimer l'offre : " + selected.getTitre());
-            alert.setContentText("Voulez-vous vraiment supprimer cette offre solidaire ?");
+            alert.setContentText("Voulez-vous vraiment supprimer cette offre ?");
 
             if (alert.showAndWait().get() == ButtonType.OK) {
                 try {
@@ -175,22 +204,11 @@ public class AfficherOffresController {
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     @FXML
     private void handleSwitchToClient() {
         try {
-            // Charge l'interface client
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ConsultationOffres.fxml"));
             Parent root = loader.load();
-
-            // Change la scène
             Stage stage = (Stage) tableOffres.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("SmartTrip - Espace Voyageur");
@@ -198,5 +216,13 @@ public class AfficherOffresController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
